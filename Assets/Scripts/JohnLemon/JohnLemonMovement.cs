@@ -28,6 +28,18 @@ public class JohnLemonMovement : MonoBehaviour
 
     }
 
+
+    private void OnAnimatorMove()
+    {
+
+
+        _rb.MovePosition(transform.position +
+                        (_direction * _anim.deltaPosition.magnitude));
+
+
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +50,7 @@ public class JohnLemonMovement : MonoBehaviour
     void Update()
     {
         InputPlayer();
+        IsAnimate();
     }
 
 
@@ -51,5 +64,21 @@ public class JohnLemonMovement : MonoBehaviour
         //Utilizar un Vector vacío en el que almacenamos los "inputs" del jugador
         _direction = new Vector3 (_horizontal, 0.0f, _vertical);
         _direction.Normalize();
+    }
+
+    private void IsAnimate()
+    {
+
+        if (_horizontal != 0.0f || _vertical != 0.0f)
+        {
+
+            _anim.SetBool("IsWalking", true);
+
+        }
+        else
+        {
+            _anim.SetBool("IsWalking", false);
+        }
+
     }
 }
