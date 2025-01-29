@@ -5,10 +5,11 @@ using UnityEngine;
 public class JohnLemonMovement : MonoBehaviour
 {
     //Zona variables globales
-    [Header("Movement")]
+    [Header("Movimiento")]
     [SerializeField]
-    private float _speed,
-                  _turnSpeed;
+    private float _speed;
+    [SerializeField]
+    private float _turnSpeed;
 
     //Guardamos la dirección del movimiento
     [SerializeField]
@@ -16,8 +17,11 @@ public class JohnLemonMovement : MonoBehaviour
 
     private Rigidbody _rb;
     private Animator _anim;
+    private AudioSource _audioSource;
     private float _horizontal,
                   _vertical;
+
+    
     
 
     private void Awake()
@@ -25,9 +29,16 @@ public class JohnLemonMovement : MonoBehaviour
 
         _rb = GetComponent<Rigidbody>();
         _anim = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
+    private void FixedUpdate()
+    {
+
+        Rotation();
+
+    }
 
     private void OnAnimatorMove()
     {
@@ -51,6 +62,8 @@ public class JohnLemonMovement : MonoBehaviour
     {
         InputPlayer();
         IsAnimate();
+        AudioStep();
+ 
     }
 
 
@@ -78,6 +91,37 @@ public class JohnLemonMovement : MonoBehaviour
         else
         {
             _anim.SetBool("IsWalking", false);
+        }
+
+    }
+
+
+    private void Rotation()
+    {
+
+        //Permite rotar hacia una dirección de golpe
+        Vector3 desiredForward = Vector3.RotateTowards(transform.forward,
+                                 _direction, _turnSpeed * Time.deltaTime, 0.0f);
+       Quaternion rotation = Quaternion.LookRotation(desiredForward);
+
+        _rb.MoveRotation(rotation); 
+
+    }
+
+    private void AudioStep()
+    {
+
+        if (_horizontal != 0.0f || _vertical != 0.0f)
+        {
+            if (_audioSource.isPlaying == false)
+            {
+                _audioSource.Play();
+
+            }
+        }
+        else
+        {
+            _audioSource.Stop();
         }
 
     }
