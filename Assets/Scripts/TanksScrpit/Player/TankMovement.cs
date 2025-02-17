@@ -17,11 +17,20 @@ public class TankMovement : MonoBehaviour
 
     private Rigidbody _rb;
 
+    [Header("Sound")]
+    [SerializeField]
+    private AudioClip _idleClip;
+    [SerializeField]
+    private AudioClip _driveClip;
+
+    private AudioSource _audioSource;
+
 
     private void Awake()
     {
 
         _rb = GetComponent<Rigidbody>();
+        _audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -36,6 +45,7 @@ public class TankMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        Turn();
     }
 
 
@@ -44,6 +54,7 @@ public class TankMovement : MonoBehaviour
     {
 
         InputsPlayer();
+        AudioPlayer();
 
     }
 
@@ -62,6 +73,38 @@ public class TankMovement : MonoBehaviour
         Vector3 direction = transform.forward * _vertical * _speed * Time.deltaTime;
         _rb.MovePosition(transform.position + direction);
 
+    }
+
+    private void Turn()
+    {
+
+        float turn = _horizontal * _turnSpeed * Time.deltaTime;
+        Quaternion turnRotation = Quaternion.Euler(0.0f, _horizontal, 0.0f);
+        _rb.MoveRotation(transform.rotation * turnRotation);
+
+    }
+
+    private void AudioPlayer()
+    {
+        
+        //El tanque se mueve o rota
+        if(_vertical != 0.0f || _horizontal != 0.0f)
+        {
+            if(_audioSource.clip != _driveClip)
+            {
+                _audioSource.clip = _driveClip;
+                _audioSource.Play();
+            }
+        }else //El tanque esta parado
+        {
+
+            if(_audioSource.clip != _idleClip)
+            {
+                _audioSource.clip = _idleClip;
+                _audioSource.Play();
+            }
+
+        }
     }
 
 }
