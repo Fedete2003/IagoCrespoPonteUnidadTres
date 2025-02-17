@@ -21,6 +21,17 @@ public class EnemyTankAttack : MonoBehaviour
     private Transform _posRot;
     [SerializeField]
     private float _launchForce;
+    [SerializeField]
+    private float _factorLaunchForce;
+
+
+    //[Header("Raycast")]
+    private Ray _ray;
+    private RaycastHit _hit;
+    private float _distance;
+    
+
+
 
 
 
@@ -53,25 +64,36 @@ public class EnemyTankAttack : MonoBehaviour
     private void CountTimer()
     {
 
+        _ray.origin = transform.position;
+        _ray.direction = transform.forward;
+
         _timer += Time.deltaTime;
 
-        if(_timer >= _timeBetweenAttack)
+        if(Physics.Raycast(_ray, out _hit))
         {
+            if (_hit.collider.CompareTag("PlayerTank") && _timer >= _timeBetweenAttack)
+            {
 
-            _timer = 0.0f;
-            _isAttacking = true;
+                _timer = 0.0f;
+                _isAttacking = true;
+                //Se saca la distancia entre el "Tanque Jugador" y el "Tanque Enemigo"
+                _distance = _hit.distance;
 
+            }
         }
+
 
     }
 
     private void Launch()
     {
 
+        float launchForceFinal = _launchForce * _distance * _factorLaunchForce;
+
         Rigidbody clonShellPrefab = Instantiate(_shellEnemyPrefab, 
                                                 _posRot.position, _posRot.rotation);
 
-        clonShellPrefab.velocity = _posRot.forward * _launchForce;
+        clonShellPrefab.velocity = _posRot.forward * launchForceFinal;
 
     }
 }
