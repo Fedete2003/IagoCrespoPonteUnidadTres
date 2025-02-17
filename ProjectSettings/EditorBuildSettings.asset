@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/JohnLemon.unity
     guid: 56bb3e7180a9b6e4f8f29b2eaa256b0b
+  - enabled: 1
+    path: Assets/Scenes/Tanks.unity
+    guid: c605b4f0274105646846565a0bad51bb
   m_configObjects: {}
