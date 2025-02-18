@@ -6,6 +6,8 @@ TagManager:
   tags:
   - JohnLemon
   - PlayerTank
+  - EnemyBullet
+  - PlayerBullet
   layers:
   - Default
   - TransparentFX
