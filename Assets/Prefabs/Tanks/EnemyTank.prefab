@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timer: 0
-  _timeBetweenAttack: 0.5
+  _timeBetweenAttack: 2
   _shellEnemyPrefab: {fileID: 5247427261399760944, guid: 6b735bbcf5aa530479e9e3745b170ecd, type: 3}
   _posRot: {fileID: 5320669737076029437}
   _launchForce: 10

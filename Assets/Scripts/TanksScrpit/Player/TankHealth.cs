@@ -77,7 +77,7 @@ public class TankHealth : MonoBehaviour
 
         Camera.main.transform.SetParent(null);
 
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject, 0.5f);
 
 
     }

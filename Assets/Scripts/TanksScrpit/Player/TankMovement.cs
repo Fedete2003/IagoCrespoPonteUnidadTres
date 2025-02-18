@@ -31,6 +31,7 @@ public class TankMovement : MonoBehaviour
 
         _rb = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
+        Cursor.lockState = CursorLockMode.Locked;
 
     }
 

@@ -892,7 +892,7 @@ MonoBehaviour:
   _currentHealth: 0
   _damageEnemy: 5
   _lifeBar: {fileID: 391709546}
-  _gameManager: {fileID: 0}
+  _gameManager: {fileID: 741164215}
 --- !u!1 &973847136
 GameObject:
   m_ObjectHideFlags: 0
